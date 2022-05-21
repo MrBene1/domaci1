@@ -2,6 +2,7 @@ import React from "react";
 import './App.css';
 import Home from "./pages/Home.js";
 import AddPost from "./pages/AddPost.js";
+import Header from "./Header.js";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 
 class App extends React.Component {
@@ -9,6 +10,7 @@ class App extends React.Component {
     return (
     <div className="App">
       <BrowserRouter>
+        <Header></Header>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/add-post" element={<AddPost/>}/>
