@@ -2,8 +2,8 @@ import React from 'react';
 
 function Home() {
     return ( 
-    <div>
-        home
+    <div className='App'>
+        <h2>Svi postovi</h2>
     </div> );
 }
 
