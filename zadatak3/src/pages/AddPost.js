@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AddPost() {
     const [blog, setBlog] = useState({
@@ -23,6 +23,8 @@ function AddPost() {
         setBlog({...blog, content: e.target.value});
     }
 
+    const navigate = useNavigate();
+
     const postData = e => { 
         e.preventDefault();
 
@@ -42,7 +44,10 @@ function AddPost() {
                 body: JSON.stringify(data)
             })
             .then(response => response.json())
-            .then(dataNew => console.log("Success", dataNew))
+            .then(dataNew => {
+                console.log("Success", dataNew);
+                navigate('/');
+            })
             .catch(function(error){
                 console.log(error);
             });
@@ -63,7 +68,6 @@ function AddPost() {
                 </form>
             </div>
         </div>
-        <Link to="/" className='back-button'>Nazad</Link>
     </div> );
 }
 

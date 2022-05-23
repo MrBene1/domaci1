@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Header() {
     return ( 
     <div className='header'>
-        <img src={logo} alt='logo'/>
+        <Link to="/"><img src={logo} alt='logo'/></Link>
         <Link to="/add-post" className='add-post-link'>Dodaj post</Link>
     </div> );
 }
