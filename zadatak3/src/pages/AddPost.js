@@ -1,35 +1,59 @@
 import React, { useState } from 'react';
 import '../App.css';
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function AddPost() {
-    const [title, setTitle] = useState("");
-    const [img, setImg] = useState("");
-    const [author, setAuthor] = useState("");
-    const [content, setContent] = useState("");
+    const [blog, setBlog] = useState({
+        title: "",
+        img: "",
+        author: "",
+        content: ""
+    });
 
     const inputTitle = e => {
-        setTitle( e.target.value );
+        setBlog({...blog, title: e.target.value});
     }
     const inputImg = e => {
-        setImg( e.target.value );
+        setBlog({...blog, img: e.target.value});
     }
     const inputAuthor = e => {
-        setAuthor( e.target.value );
+        setBlog({...blog, author: e.target.value});
     }
     const inputContent = e => {
-        setContent( e.target.value );
+        setBlog({...blog, content: e.target.value});
     }
 
-    console.log(title);
-    console.log(img);
-    console.log(author);
-    console.log(content);
+    const postData = e => { 
+        e.preventDefault();
+
+        fetch('https://jsonblob.com/api/jsonBlob/976178308425465856')
+        .then(response => response.json())
+        .then(data => {
+            data.push(blog);
+            const idIncrement = () =>{
+                data[data.length-1] = {id: (data[data.length-2].id + 1), ...data[data.length-1]}
+            }
+            idIncrement();
+            fetch('https://jsonblob.com/api/jsonBlob/976178308425465856', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(dataNew => console.log("Success", dataNew))
+            .catch(function(error){
+                console.log(error);
+            });
+        });
+    }
+
     return ( 
     <div>
         <div className='add-post'>
             <div className='main'>
-                <form>
+                <form onSubmit={postData}>
                     <label className='label'>Dodaj post</label>
                     <input placeholder="Naziv" name="title" type="text" className="input" maxLength="20" onChange={inputTitle}/>
                     <input placeholder="Url slike" name="img" type="text" className="input" onChange={inputImg}/>

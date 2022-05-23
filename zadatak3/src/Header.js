@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.png';
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Header() {
     return ( 
